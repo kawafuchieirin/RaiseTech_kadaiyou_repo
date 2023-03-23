@@ -1,20 +1,20 @@
 
 ##第三回課題
 1.ブラウズの起動
-![1](RaiseTech_kadaiyou_repo/1.png)
+![1](1.png)
 
 2.AP サーバーの名前とバージョンを確認
-![2](RaiseTech_kadaiyou_repo/2.png)
+![2](2.png)
 
 3.AP サーバーを終了させた場合
-![3](RaiseTech_kadaiyou_repo/3.png)
+![3](3.png)
 -ブラウズを開くことができませんでした。
 
 4.サンプルアプリケーションで使った DB サーバー（DB エンジン）の名前と、今 Cloud9 で動作しているバージョンはいくつか確認
-![4](RaiseTech_kadaiyou_repo/4.png)
+![4](4.png)
 
 5.DB サーバーを終了させた場合
-![5](RaiseTech_kadaiyou_repo/5.png)
+![5](5.png)
 -起動することができませんでした。
 
 6.Rails の構成管理ツールの名前
