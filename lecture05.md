@@ -71,7 +71,7 @@ mysql --help | grep my.cnf
 エラーインストールがとまっている<br>
 →インストールが進まなかったのでインスタンスタイプを変更<br>
 エラー　railsがインストールされていない<br>
-`gem install rails`<br>
+`$gem install rails`<br>
 ## ・railsの起動<br>
 `$rails s -b 0.0.0.0`<br>
 エラー　コンパイルができない<br>
@@ -92,7 +92,7 @@ mysql --help | grep my.cnf
 `$sudo amazon-linux-extras install nginx1`
 <br>
 ## ・Nginx を起動
-`sudo systemctl start nginx`
+`$sudo systemctl start nginx`
 <br>
 ![0504](images/0504.png)
 <br>
@@ -104,18 +104,21 @@ Unicorn の起動・停止スクリプトを作成する
 lib/tasks ディレクトリに unicorn.rake というファイルが生成ファイルを開いて編集
 <br>
 ## ・Unicorn を起動
-`rake unicorn:start`<br>
+`$rake unicorn:start`<br>
 Unicorn が起動しているかどうかを確認<br>
-`ps -ef | grep unicorn | grep -v grep`
+`$ps -ef | grep unicorn | grep -v grep`
 <br>
 ## ・Nginx の設定ファイルを作成
 エラー　権限がないためにviが編集できない<br>
-→sudo~とつける<br>
+→$sudo~とつける<br>
 エラー　サーバーネームが長い<br>
 →server name をlocalhostに変更
 <br>
 ## nginx 起動
 `$sudo systemctl start nginx`<br>
+![0505](images/0505.png)<br>
+![0509](images/0509.png)
+<br>
 ## nginx エラーの確認できるコマンド
 `$sudo systemctl status nginx -l`<br>
 `$nginx -t`<br>
