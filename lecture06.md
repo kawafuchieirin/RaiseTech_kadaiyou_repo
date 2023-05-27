@@ -3,7 +3,7 @@
 
 #  CloudTrail のイベントの記録
 
-  ![cloudtrail](image/0606.png)
+  ![cloudtrail](images/0606.png)
 
 イベント名 - これは通常、イベントに関連付けられた API 名 (CreateTrail など) です。  
 
@@ -23,17 +23,17 @@
 
 1. CloudWatch アラームの作成
 
-　![0604](image/0604.png)
+　![0604](images/0604.png)
 
 2. nginxを停止した際にメールを受信
 
-　![0601](image/0601.png)
+　![0601](images/0601.png)
 
-　![0602](image/0602.png)
+　![0602](images/0602.png)
 
 3. nginxを再起動するとOKの通知を受信
 
-　![0603](image/0603.png) 
+　![0603](images/0603.png) 
 
 
 # AWS 利用料の見積を作成
@@ -43,7 +43,7 @@
 
 # マネジメントコンソールから、現在の利用料を確認
 
-　![0605](image/0605.png)
+　![0605](images/0605.png)
 
 AWSのアカウントを2021年に作成していたため無料枠での利用がありませんでした。
 
