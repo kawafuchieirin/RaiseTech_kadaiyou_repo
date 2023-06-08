@@ -1,0 +1,59 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: RDS template
+
+Parameters:
+  VPCStack:
+    Type: String
+    Default: RDS
+  DBUser:
+    Type: String
+    Default: dbmaster
+  DBPassword:
+    Type: String
+    Default: H&ppyHands0n
+    NoEcho: true
+
+  
+Resources:
+# RDS
+  DBInstance:
+    Type: AWS::RDS::DBInstance
+    DeletionPolicy: Delete
+    Properties:
+      DBInstanceClass: db.t2.micro
+      AllocatedStorage: "10"
+      StorageType: gp2
+      Engine: MySQL
+      MasterUsername: root
+      MasterUserPassword: rootroot
+      DBName: raisetech_live8_sample_app_development
+      BackupRetentionPeriod: 0
+      DBSubnetGroupName: !Ref DBSubnetGroup
+      VPCSecurityGroups:
+        - !Ref DBSecurityGroup
+
+  DBSubnetGroup: 
+    Type: AWS::RDS::DBSubnetGroup
+    Properties: 
+      DBSubnetGroupDescription: DB Subnet Group for Private Subnet
+      SubnetIds: 
+        - !ImportValue PrivateSubnet01
+        - !ImportValue PrivateSubnet02
+
+  DBSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties: 
+      GroupDescription: MySQL
+      VpcId: !ImportValue VPC
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 3306
+          ToPort: 3306
+          CidrIp: 10.0.0.0/16
+
+
+Outputs:
+  DBEndpoint:
+    Value: !GetAtt DBInstance.Endpoint.Address
+    Export:
+      Name: DBEndpoint
