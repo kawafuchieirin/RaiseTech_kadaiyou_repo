@@ -1,0 +1,51 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: ALB-templete
+
+# ------------------------------------------------------------#
+# Input Parameters
+# ------------------------------------------------------------# 
+Parameters:
+  PJPrefix:
+    Type: String
+
+#InternetALB
+  InternetALBName:
+    Type: String
+    Default: "web"
+Resources:
+# ------------------------------------------------------------#
+#  Target Group
+# ------------------------------------------------------------#
+  targetGroup:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      Name: reaisetech-tg
+      VpcId: { "Fn::ImportValue": !Sub "${PJPrefix}-vpc" }
+      Port: 80
+      Protocol: HTTP
+      Targets:
+      - Id: { "Fn::ImportValue": !Sub "${PJPrefix}-EC2"}
+
+
+# ------------------------------------------------------------#
+#  Internet ALB
+# ------------------------------------------------------------#
+  ALB:
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+    Properties:
+      Name: ALB
+      Subnets:
+      - { "Fn::ImportValue": !Sub "${PJPrefix}-public-subnet-a" }
+      - { "Fn::ImportValue": !Sub "${PJPrefix}-public-subnet-c" }
+      SecurityGroups: 
+        - { "Fn::ImportValue": !Sub "${PJPrefix}-EC2-sg-cfn"}
+
+  Listener:
+    Type: AWS::ElasticLoadBalancingV2::Listener
+    Properties:
+      LoadBalancerArn: !Ref ALB
+      Port: 80
+      Protocol: HTTP 
+      DefaultActions: 
+        - Type: forward
+          TargetGroupArn: !Ref targetGroup

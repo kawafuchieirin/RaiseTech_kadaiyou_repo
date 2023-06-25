@@ -1,0 +1,82 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: EC2-templete
+
+# ------------------------------------------------------------#
+# Input Parameters
+# ------------------------------------------------------------# 
+Parameters:
+  PJPrefix:
+    Type: String
+
+#EC2Instance
+  EC2InstanceName:
+    Type: String
+    Default: "web"
+  EC2InstanceInstanceType:
+    Type: String
+    Default: "t2.micro"
+
+# ------------------------------------------------------------#
+# EC2
+# ------------------------------------------------------------# 
+Resources:
+#KeyPair
+  KeyPair:
+    Type: AWS::EC2::KeyPair
+    Properties:
+      KeyName: MyKeyPair
+#EC2
+  EC2: 
+    Type: AWS::EC2::Instance
+    Properties: 
+      ImageId: ami-00d101850e971728d
+      KeyName: !Ref KeyPair
+      InstanceType: t2.micro
+      NetworkInterfaces: 
+        - AssociatePublicIpAddress: "true"
+          DeviceIndex: "0"
+          SubnetId: { "Fn::ImportValue": !Sub "${PJPrefix}-public-subnet-a" }
+          GroupSet:
+            - !Ref EC2SG
+      UserData: !Base64 |
+        #!/bin/bash
+        sudo yum update -y 
+        
+      Tags:
+          - Key: Name
+            Value: !Sub "${PJPrefix}-EC2"
+# ------------------------------------------------------------#
+# セキュリティーグループ
+# ------------------------------------------------------------# 
+#SG
+  EC2SG:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupName: EC2-sg-cfn
+      GroupDescription: web
+      VpcId: { "Fn::ImportValue": !Sub "${PJPrefix}-vpc" }
+      SecurityGroupIngress:
+        # http
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+        # ssh
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+# ------------------------------------------------------------#
+# Output Parameters
+# ------------------------------------------------------------#    
+Outputs:
+#EC2
+  EC2:
+        Value: !Ref EC2
+        Export:
+            Name: !Sub "${PJPrefix}-EC2"
+#セキュリティーグループ
+  EC2SG:
+    Value: !Ref EC2SG
+    Export:
+      Name: !Sub "${PJPrefix}-EC2-sg-cfn"
