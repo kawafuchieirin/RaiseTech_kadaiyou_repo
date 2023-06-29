@@ -8,10 +8,6 @@ Parameters:
   PJPrefix:
     Type: String
 
-#InternetALB
-  InternetALBName:
-    Type: String
-    Default: "web"
 Resources:
 # ------------------------------------------------------------#
 #  Target Group
