@@ -21,14 +21,13 @@ Resources:
   KeyPair:
     Type: AWS::EC2::KeyPair
     Properties:
-      KeyName: MyKeyPair
+      KeyName: KeyPair
 #EC2
   EC2: 
     Type: AWS::EC2::Instance
     Properties: 
       ImageId: ami-00d101850e971728d
       KeyName: !Ref KeyPair
-      InstanceType: t2.micro
       NetworkInterfaces: 
         - AssociatePublicIpAddress: "true"
           DeviceIndex: "0"
@@ -37,11 +36,20 @@ Resources:
             - !Ref EC2SG
       UserData: !Base64 |
         #!/bin/bash
-        sudo yum update -y 
+        sudo yum update -y
         
       Tags:
           - Key: Name
             Value: !Sub "${PJPrefix}-EC2"
+
+#EIP
+  EIP:
+    Type: AWS::EC2::EIP         
+    Properties:
+      InstanceId: !Ref EC2
+
+    
+
 # ------------------------------------------------------------#
 # セキュリティーグループ
 # ------------------------------------------------------------# 
