@@ -62,7 +62,8 @@ Resources:
 # ------------------------------------------------------------#
 #  Subnet
 # ------------------------------------------------------------#          
-# Public SubnetA CcSubnetA: 
+# Public SubnetA Create
+  PublicSubnetA: 
     Type: "AWS::EC2::Subnet"
     Properties: 
       AvailabilityZone: !Select
@@ -112,7 +113,6 @@ Resources:
       Tags: 
         - Key: Name
           Value: !Sub "${PJPrefix}-private-subnet-c"
-  
 
 # ------------------------------------------------------------#
 #  RouteTable

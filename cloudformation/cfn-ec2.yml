@@ -7,12 +7,6 @@ Description: EC2-templete
 Parameters:
   PJPrefix:
     Type: String
-
-#EC2Instance
-  EC2InstanceInstanceType:
-    Type: String
-    Default: "t2.micro"
-
 # ------------------------------------------------------------#
 # EC2
 # ------------------------------------------------------------# 
@@ -28,6 +22,7 @@ Resources:
     Properties: 
       ImageId: ami-00d101850e971728d
       KeyName: !Ref KeyPair
+      InstanceType: t2.micro
       NetworkInterfaces: 
         - AssociatePublicIpAddress: "true"
           DeviceIndex: "0"
