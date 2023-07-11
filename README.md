@@ -1,7 +1,7 @@
 # RaiseTech_kadaiyou_repo
 RaiseTechの課題提出用です。
 
-|  lecture |  内容  |
+|  講義 |  内容  |
 | ---- | ---- |
 |  lecture2  |  gitの使い方  |
 |  lecture3  |  アプリケーションのデプロイ  |
